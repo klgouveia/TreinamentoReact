@@ -6,8 +6,6 @@ import './App.css'
 import AppForm from './AppForm'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <main className="login-page" id="login-page">
@@ -18,7 +16,7 @@ function App() {
         <p>Unimed</p>
       </header>
 
-      <AppForm login="0089234000012" senha="123456" />
+      <AppForm/>
 
       <p className="login-hint">
         Carteirinha: <strong>0089234000012</strong> | Senha:

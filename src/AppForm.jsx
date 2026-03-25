@@ -1,24 +1,51 @@
 import { useState } from 'react'
+import axios from "axios";
 
-function AppForm({login, senha}) {
-  const [count, setCount] = useState(0)
+import InputField from "./InputField";
+
+function AppForm() {
+  const [carteirinha, setCarteirinha] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
+
+  const API_URL = "https://portal-unimed-fake-api.onrender.com";
+
+  console.log("Carteirinha:", carteirinha);
+  console.log("Senha:", senha);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${API_URL}/login`, { carteirinha, senha })
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Falha no login. Verifique suas credenciais e tente novamente.");
+    }
+  };
 
   return (
     <>
-      <form className="login-form" id="login-form">
-        <div className="form-group">
-          <label forHtml="carteirinha">Carteirinha</label>
-          <input type="text" id="carteirinha" placeholder="Digite sua carteirinha" value={login} />
-          <span className="error-message" id="carteirinha-error"></span>
-        </div>
+      <form onSubmit={handleSubmit} className="login-form" id="login-form">
+        <InputField
+        id="carteirinha"
+        type="text"
+        placeholder="Digite sua carteirinha"
+        label="Carteirinha"
+        value={carteirinha}
+        onChange={(e) => setCarteirinha(e.target.value)}
+        />
 
-        <div className="form-group">
-          <label forHtml="senha">Senha</label>
-          <input type="password" id="senha" placeholder="Digite sua senha" value={senha} />
-          <span className="error-message" id="senha-error"></span>
-        </div>
+        <InputField
+        id="senha"
+        type="password"
+        placeholder="Digite sua senha"
+        label="Senha"
+        value={senha}
+        onChange={(e) => setSenha(e.target.value)}
+        />
 
-        <div className="error-message" id="login-error"></div>
+        {error && <div className="error-message" id="login-error">{error}</div>}
 
         <button type="submit" className="btn-primary">Entrar</button>
       </form>
