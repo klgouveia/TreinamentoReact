@@ -3,21 +3,19 @@ import axios from "axios";
 
 import InputField from "./InputField";
 
-function AppForm() {
+function AppForm({ setPaciente }) {
   const [carteirinha, setCarteirinha] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
 
   const API_URL = "https://portal-unimed-fake-api.onrender.com";
 
-  console.log("Carteirinha:", carteirinha);
-  console.log("Senha:", senha);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${API_URL}/login`, { carteirinha, senha })
       console.log("Login successful:", response.data);
+      setPaciente(response.data);
     } catch (error) {
       console.error("Login error:", error);
       setError("Falha no login. Verifique suas credenciais e tente novamente.");

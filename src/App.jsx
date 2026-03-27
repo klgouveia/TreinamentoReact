@@ -1,11 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 import AppForm from './AppForm'
 
-function App() {
+function App({setPaciente}) {
   return (
     <>
       <main className="login-page" id="login-page">
@@ -16,7 +12,7 @@ function App() {
         <p>Unimed</p>
       </header>
 
-      <AppForm/>
+      <AppForm setPaciente={setPaciente}/>
 
       <p className="login-hint">
         Carteirinha: <strong>0089234000012</strong> | Senha:
