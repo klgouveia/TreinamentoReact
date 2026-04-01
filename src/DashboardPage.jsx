@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+import { post } from "./services/api";
+import { get } from "./services/api";
 
 function DashboardPage({ paciente }) {
 
@@ -12,10 +13,10 @@ function DashboardPage({ paciente }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const examesResponse = await axios.get(`${API_URL}/exames?pacienteId=${paciente.id}`);
-        setExames(examesResponse.data);
-        const consultasResponse = await axios.get(`${API_URL}/consultas?pacienteId=${paciente.id}`);
-        setConsultas(consultasResponse.data);
+        const examesResponse = await get(`/exames?pacienteId=${paciente.id}`);
+        setExames(examesResponse);
+        const consultasResponse = await get(`/consultas?pacienteId=${paciente.id}`);
+        setConsultas(consultasResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

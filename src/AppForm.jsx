@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from "axios";
+import { post } from "./services/api";
 
 import InputField from "./InputField";
 
@@ -7,15 +7,12 @@ function AppForm({ setPaciente }) {
   const [carteirinha, setCarteirinha] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
-
-  const API_URL = "https://portal-unimed-fake-api.onrender.com";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${API_URL}/login`, { carteirinha, senha })
-      console.log("Login successful:", response.data);
-      setPaciente(response.data);
+      const data = await post("/login", { carteirinha, senha })
+      console.log("Login successful:", data);
+      setPaciente(data);
     } catch (error) {
       console.error("Login error:", error);
       setError("Falha no login. Verifique suas credenciais e tente novamente.");
