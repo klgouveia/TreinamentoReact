@@ -1,22 +1,16 @@
 import { useState } from 'react'
 import { post } from "./services/api";
-
 import InputField from "./InputField";
+import { usePaciente } from "./contexts/PacienteContext.jsx";
 
-function AppForm({ setPaciente }) {
+function AppForm() {
+  const { login, error } = usePaciente();
   const [carteirinha, setCarteirinha] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const data = await post("/login", { carteirinha, senha })
-      console.log("Login successful:", data);
-      setPaciente(data);
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("Falha no login. Verifique suas credenciais e tente novamente.");
-    }
+    await login(carteirinha, senha);
   };
 
   return (

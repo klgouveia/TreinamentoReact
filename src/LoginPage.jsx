@@ -1,10 +1,11 @@
 import './App.css'
 import AppForm from './AppForm'
 import { useContext } from "react";
-import PacienteContext from "./contexts/PacienteContext.jsx";
+import { usePaciente } from "./contexts/PacienteContext.jsx";
 
 function LoginPage() {
-  const { setPaciente } = useContext(PacienteContext);
+  const { setPaciente } = usePaciente();
+
   return (
     <>
       <main className="login-page" id="login-page">

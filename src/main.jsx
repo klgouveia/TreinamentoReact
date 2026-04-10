@@ -10,32 +10,39 @@ import ExamesPage from './ExamesPage.jsx';
 import AgendamentoPage from './AgendamentoPage.jsx';
 
 
-import PacienteContext from './contexts/PacienteContext.jsx';
 
 
-function Main() {
-  const [paciente, setPaciente] = useState(null);
+import { PacienteProvider, usePaciente } from './contexts/PacienteContext';
+
+function AppRoutes() {
+  const { paciente } = usePaciente();
 
   return (
-    <PacienteContext.Provider value={{ paciente, setPaciente }}>
-    <BrowserRouter>
-      <Routes>
-          <Route
-          path="/login"
-          element={paciente != null ? <Navigate to="/" /> : <LoginPage />}
-          />
-          <Route
-            element={paciente != null ? <MainLayout /> : <Navigate to="/login" />}
-          >
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/consultas" element={<ConsultasPage />} />
-          <Route path="/exames" element={<ExamesPage />} />
-          <Route path="/agendamento" element={<AgendamentoPage />} />
-        </Route>
+    <Routes>
+      <Route
+        path="/login"
+        element={!paciente ? <LoginPage /> : <Navigate to="/" />}
+      />
 
-      </Routes>
-    </BrowserRouter>
-    </PacienteContext.Provider>
+      <Route
+        element={paciente ? <MainLayout /> : <Navigate to="/login" />}
+      >
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/consultas" element={<ConsultasPage />} />
+        <Route path="/exames" element={<ExamesPage />} />
+        <Route path="/agendamento" element={<AgendamentoPage />} />
+      </Route>
+    </Routes>
+  );
+}
+
+function Main() {
+  return (
+    <PacienteProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </PacienteProvider>
   );
 }
 

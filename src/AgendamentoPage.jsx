@@ -4,6 +4,7 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './Consultas.css'
 
+
 function AgendamentoPage() {
   return (
     <>
