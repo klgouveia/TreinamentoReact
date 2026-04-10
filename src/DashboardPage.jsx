@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import { post } from "./services/api";
 import { get } from "./services/api";
+import { useContext } from "react";
 
-function DashboardPage({ paciente }) {
+import PacienteContext from "./contexts/PacienteContext.jsx";
 
+function DashboardPage() {
   const API_URL = "https://portal-unimed-fake-api.onrender.com";
+
+  const { paciente } = useContext(PacienteContext);
 
   const [exames, setExames] = useState([]);
   const [consultas, setConsultas] = useState([]);

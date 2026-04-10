@@ -1,7 +1,10 @@
 import './App.css'
 import AppForm from './AppForm'
+import { useContext } from "react";
+import PacienteContext from "./contexts/PacienteContext.jsx";
 
-function App({setPaciente}) {
+function LoginPage() {
+  const { setPaciente } = useContext(PacienteContext);
   return (
     <>
       <main className="login-page" id="login-page">
@@ -24,4 +27,4 @@ function App({setPaciente}) {
   )
 }
 
-export default App
+export default LoginPage
