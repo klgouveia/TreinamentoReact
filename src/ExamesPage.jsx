@@ -1,15 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './Consultas.css'
+import { useState } from "react";
+import ExamesTable from "./ExamesTable";
+
+import { usePaciente } from "./contexts/PacienteContext";
 
 function ExamesPage() {
+  const { dados, atualizarExames } = usePaciente();
+  const { exames } = dados;
+  const [carregando, setCarregando] = useState(false);
+
+  const handleAtualizar = async () => {
+    setCarregando(true);
+
+    try {
+      await atualizarExames();
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   return (
-    <>
-      Exames Page
-    </>
-  )
+    <div>
+      <h1>Exames</h1>
+      <button onClick={handleAtualizar} disabled={carregando}>
+        {carregando ? 'Atualizando...' : 'Atualizar dados'}
+      </button>
+      {
+        exames && exames.length > 0 ? (
+          <ExamesTable exames={exames} />
+        ) : (
+          <p>Não há exames disponíveis.</p>
+        )
+      }
+    </div>
+  );
 }
 
-export default ExamesPage
+export default ExamesPage;

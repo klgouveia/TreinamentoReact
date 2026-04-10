@@ -1,6 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
 
+import { usePaciente } from './contexts/PacienteContext';
+
+
 const NAV_LINKS = [
   { to: '/', label: 'Início', end: true },
   { to: '/consultas', label: 'Consultas' },
@@ -11,7 +14,9 @@ const NAV_LINKS = [
 const navLinkClass = ({ isActive }) =>
   isActive ? 'nav-link nav-link--active' : 'nav-link';
 
-function Navbar({ paciente, setPaciente }) {
+function Navbar() {
+  const { dados, logout } = usePaciente();
+
   return (
     <header className="navbar">
       <div className="navbar-brand">
@@ -29,14 +34,13 @@ function Navbar({ paciente, setPaciente }) {
 
       <div className="navbar-actions">
         <button className="navbar-bell" title="Notificações">🔔</button>
-        <span className="navbar-user">{paciente?.nome}</span>
-        <button className="navbar-logout" onClick={() => setPaciente(null)}>
+        <span className="navbar-user">{dados.paciente?.nome}</span>
+        <button className="navbar-logout" onClick={logout}>
           Sair
         </button>
       </div>
     </header>
   );
 }
-
 
 export default Navbar;

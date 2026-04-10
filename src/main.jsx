@@ -15,7 +15,8 @@ import AgendamentoPage from './AgendamentoPage.jsx';
 import { PacienteProvider, usePaciente } from './contexts/PacienteContext';
 
 function AppRoutes() {
-  const { paciente } = usePaciente();
+  const { dados } = usePaciente();
+  const { paciente } = dados;
 
   return (
     <Routes>

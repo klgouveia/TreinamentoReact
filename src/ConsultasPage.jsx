@@ -1,15 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './Consultas.css'
+import { useState } from "react";
+import ConsultasTable from "./ConsultasTable";
+
+import { usePaciente } from "./contexts/PacienteContext";
 
 function ConsultasPage() {
+  const { dados, atualizarConsultas } = usePaciente();
+  const { consultas } = dados;
+  const [carregando, setCarregando] = useState(false);
+
+  const handleAtualizar = async () => {
+    setCarregando(true);
+
+    try {
+      await atualizarConsultas();
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   return (
-    <>
-      Consultas Page
-    </>
-  )
+    <div>
+      <h1>Consultas</h1>
+      <button onClick={handleAtualizar} disabled={carregando}>
+        {carregando ? 'Atualizando...' : 'Atualizar dados'}
+      </button>
+      {
+        consultas && consultas.length > 0 ? (
+          <ConsultasTable consultas={consultas} />
+        ) : (
+          <p>Não há consultas disponíveis.</p>
+        )
+      }
+    </div>
+  );
 }
 
-export default ConsultasPage
+export default ConsultasPage;

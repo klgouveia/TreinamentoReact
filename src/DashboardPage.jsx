@@ -1,33 +1,13 @@
-import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
-import { post } from "./services/api";
-import { get } from "./services/api";
 import { usePaciente } from "./contexts/PacienteContext.jsx";
 
 
+
 function DashboardPage() {
-  const API_URL = "https://portal-unimed-fake-api.onrender.com";
+  const { dados } = usePaciente();
+  const { paciente, exames, consultas } = dados;
 
-  const { paciente } = usePaciente();
-  const [exames, setExames] = useState([]);
-  const [consultas, setConsultas] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const examesResponse = await get(`/exames?pacienteId=${paciente.id}`);
-        setExames(examesResponse);
-        const consultasResponse = await get(`/consultas?pacienteId=${paciente.id}`);
-        setConsultas(consultasResponse);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (!exames.length || !consultas.length) {
+  if (!paciente || !exames.length || !consultas.length) {
     return <LoadingSpinner />
   }
 
@@ -35,8 +15,25 @@ function DashboardPage() {
     <div>
       <h1>Dashboard</h1>
       <p>Bem-vindo, {paciente.nome}!</p>
-      {exames.length > 0 ? <p>Exames: {exames.length}</p> : <p>Carregando exames...</p>}
-      {consultas.length > 0 ? <p>Consultas: {consultas.length}</p> : <p>Carregando consultas...</p>}
+      
+      {exames.length > 0 ? console.log("Exames:", exames) : <p>Carregando exames...</p>}
+      {consultas.length > 0 ? console.log("Consultas:", consultas) : <p>Carregando consultas...</p>}
+
+      {consultas && consultas.length > 0 && (
+        <div>
+          <h3>Consultas Recentes</h3>
+          <div>
+            {consultas.slice(0, 3).map((consulta) => (
+              <div key={consulta.id}>
+                <strong>{consulta.especialidade}</strong>
+                <span> — {consulta.medico}</span>
+                <span> | {consulta.data}</span>
+                <span> | {consulta.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
