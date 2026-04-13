@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ConsultasTable from "./ConsultasTable";
 
-import { usePaciente } from "./contexts/PacienteContext";
+import { usePaciente } from "../../contexts/PacienteContext";
 
 function ConsultasPage() {
   const { dados, atualizarConsultas } = usePaciente();
@@ -19,16 +19,18 @@ function ConsultasPage() {
   };
 
   return (
-    <div>
-      <h1>Consultas</h1>
-      <button onClick={handleAtualizar} disabled={carregando}>
-        {carregando ? 'Atualizando...' : 'Atualizar dados'}
-      </button>
+    <div className="page-container">
+      <div className="page-title">
+        <h1>Consultas</h1>
+        <button className="btn-refresh" onClick={handleAtualizar} disabled={carregando}>
+          {carregando ? '⟳ Atualizando...' : '⟳ Atualizar'}
+        </button>
+      </div>
       {
         consultas && consultas.length > 0 ? (
           <ConsultasTable consultas={consultas} />
         ) : (
-          <p>Não há consultas disponíveis.</p>
+          <div className="empty-state">Nenhuma consulta disponível.</div>
         )
       }
     </div>

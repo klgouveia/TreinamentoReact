@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useContext } from "react";
 
 import Navbar from './Navbar';
-import { usePaciente } from "./contexts/PacienteContext.jsx";
+import { usePaciente } from "../contexts/PacienteContext.jsx";
 
 
 function MainLayout() {

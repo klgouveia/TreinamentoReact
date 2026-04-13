@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './index.css'
-import MainLayout from './MainLayout.jsx';
-import LoginPage from './LoginPage.jsx'
-import DashboardPage from './DashboardPage.jsx' 
-import ConsultasPage from './ConsultasPage.jsx';
-import ExamesPage from './ExamesPage.jsx';
-import AgendamentoPage from './AgendamentoPage.jsx';
+import MainLayout from './layout/MainLayout.jsx';
+import LoginPage from './pages/Login/LoginPage.jsx'
+import DashboardPage from './pages/Dashboard/DashboardPage.jsx' 
+import ConsultasPage from './pages/Consultas/ConsultasPage.jsx';
+import ExamesPage from './pages/Exames/ExamesPage.jsx';
+import AgendamentoPage from './pages/Agendamento/AgendamentoPage.jsx';
 
 
 

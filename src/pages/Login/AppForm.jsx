@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { post } from "./services/api";
+import { post } from "../../services/api";
 import InputField from "./InputField";
-import { usePaciente } from "./contexts/PacienteContext.jsx";
+import { usePaciente } from "../../contexts/PacienteContext.jsx";
 
 function AppForm() {
   const { login, error } = usePaciente();

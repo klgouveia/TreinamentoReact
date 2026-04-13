@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
 
-import { usePaciente } from './contexts/PacienteContext';
+import { usePaciente } from '../contexts/PacienteContext';
 
 
 const NAV_LINKS = [
